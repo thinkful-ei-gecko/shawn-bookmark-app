@@ -181,7 +181,6 @@ const BOOKMARKS = (function(){
         });
     });
   }
-  
 
   
   function bindEventListeners() {
