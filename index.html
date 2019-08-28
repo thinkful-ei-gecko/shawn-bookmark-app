@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang='en'>
+
+<head>
+  <meta charset='UTF-8'>
+  <meta name='viewport' content='width=device-width, initial-scale=1.0'>
+  <meta http-equiv='X-UA-Compatible' content='ie=edge'>
+  <link rel='icon' href="/assets/favicon.ico">
+  <link rel="stylesheet" href="  https://cdnjs.cloudflare.com/ajax/libs/normalize/8.0.1/normalize.min.css">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/font-awesome/4.4.0/css/font-awesome.min.css">  
+  <link rel='stylesheet' href='index.css'>
+
+  <title>Strugglemarks</title>
+</head>
+
+<body>
+
+  <header>
+    <h1>Strugglemarks</h1>
+  </header>
+
+  <section class="filter-and-new">
+      <button id="filter-stars-button" class="hoverable btn">
+          <legend class="hide-on-hover" id="filter-stars-button-legend"><i class="fa fa-filter"></i> Filter by Rating</legend>
+          <form class="show-on-hover" id="filter-star-form">
+          <fieldset class="show-on-hover" id="filter-stars-fieldset">
+            <span id="filter-star-rating" class='starRating'>
+                <input id='filter-rating-5' type='radio' name='filter-rating' value='5'>
+                <label for='filter-rating-5'>5</label>
+                <input id='filter-rating-4' type='radio' name='filter-rating' value='4'>
+                <label for='filter-rating-4'>4</label>
+                <input id='filter-rating-3' type='radio' name='filter-rating' value='3'>
+                <label for='filter-rating-3'>3</label>
+                <input id='filter-rating-2' type='radio' name='filter-rating' value='2'>
+                <label for='filter-rating-2'>2</label>
+                <input id='filter-rating-1' type='radio' name='filter-rating' value='1'>
+                <label for='filter-rating-1'>1</label>
+              </span> 
+            </fieldset>
+          </form>
+        </button>
+    <button id="new-bookmark-window-button" class="btn"><i class="fa fa-plus"></i> New Bookmark </button>
+  </section>
+
+
+  
+
+
+  <section id="bookmark-form"> </section>
+  
+  
+  <main class='bookmarks-section'>
+  <!-- BOOKMARKS GET ADDED HERE -->
+
+  </main>
+
+
+  
+  
+
+
+    <!-- <footer class="footer">Made with <i class="fa fa-heart"></i> on the Stuggle Bus.</footer> -->
+  
+
+  <script type='text/javascript' src='https://cdnjs.cloudflare.com/ajax/libs/cuid/1.3.8/browser-cuid.min.js'></script>
+  <script type='text/javascript' src='https://code.jquery.com/jquery-3.2.1.min.js'></script>
+  <script type='text/javascript' src='scripts/API.js'></script>
+  <script type='text/javascript' src='scripts/LOCAL.js'></script>
+  <script type='text/javascript' src='scripts/BOOKMARKS.js'></script>
+  <script type='text/javascript' src='scripts/INDEX.js'></script>
+</body>
+
+</html>
+
+
+<!-- 
+
+  COLLAPSED VIEW
+
+  <div class='collapsed bookmark-item'>
+      <input type="button" class="js-bookmark-name btn" value=`${title}` onclick="window.open(`${url}`)">
+      <button class="js-option btn"><i class="fa fa-plus"></i> Expand </button>
+      <section class='bookmark-rating'>`${rating}`</section>
+    </div>
+
+  EXPANDED VIEW
+
+    <div class='expanded bookmark-item'>
+      <input type="button" class="js-bookmark-name btn" value=`${title}` onclick="window.open(`${url}`)">
+      <button class="js-option btn"><i class="fa fa-minus"></i> Collapse </button>
+      <section class='js-bookmark-body'>
+        <p class='description-block'>Description: `${desc}`</p>
+      </section>
+      <section class='bookmark-rating'>`${rating}`</section>
+      <button class="js-option-delete btn"><i class="fa fa-trash"></i> Delete </button>
+    </div>
+
+ -->
