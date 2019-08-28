@@ -1,6 +1,6 @@
 /* eslint-disable no-console */
 'use strict';
-/* global LOCAL, BOOKMARKS $ */
+/* global LOCAL, BOOKMARKS, $ */
 /* eslint-disable strict */
 
 
@@ -67,6 +67,7 @@ const API = (function () {
   };
 
   return {
+    masterFetch,
     getBookmarks,
     createBookmark,
     deleteBookmark
