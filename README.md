@@ -1,19 +1,33 @@
-###DESCRIPTION:
+DESCRIPTION:
+
 An app to create, save, delete, and filter your bookmarks by rating.
 
 
-###GITHUB PAGES LINK:
+
+GITHUB PAGES LINK:
+
 https://thinkful-ei-gecko.github.io/shawn-bookmark-app/
 
 
-###USER STORIES:
+
+
+USER STORIES:
+
 I can add bookmarks to my bookmark list. Bookmarks contain:
 
+
+
 -title
+
 -url 
+
 -link
+
 -description
+
 -rating (1-5)
+
+
 
 I can see a list of my bookmarks when I first open the app
 
