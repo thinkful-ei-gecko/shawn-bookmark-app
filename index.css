@@ -338,6 +338,7 @@ a {
   transition: opacity 0.2s linear;
 }
 
+
 .starRating:not(old)>label:hover:before,
 .starRating:not(old)>label:hover~label:before,
 .starRating:not(:hover)> :checked~label:before {
@@ -434,3 +435,4 @@ fieldset {
   font-size: 12px;
 }
 /* END OF BOOKMARK FORM */
+}
