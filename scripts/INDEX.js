@@ -7,9 +7,9 @@
 
 $(document).ready(function() {
   BOOKMARKS.bindEventListeners();
-  BOOKMARKS.render();
-});
-
+  API.getBookmarks()
+    .then(() => BOOKMARKS.render())
+})
 
 
 //API return bookmarks

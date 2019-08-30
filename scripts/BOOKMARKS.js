@@ -4,46 +4,29 @@
 /* eslint-disable no-console */
 // eslint-disable-next-line no-unused-vars
 
-const BOOKMARKS = (function(){
-  function generateBookmarkElement(bookmark) {
-    const starIconString = '<i class="fa fa-star"></i>';
-    const starCount = (starIconString.repeat(bookmark.rating));
-    return `
-    <div class="bookmark-item">
-    <section class="url-expand-collapse-group">
-    <a class="url-link bookmark-btn" href="${bookmark.url}" target="_blank"> ${bookmark.title} ${starCount} </a>
-    <button bookmark-id="${bookmark.id}" class="id-locator expand hide-when-expanded bookmark-btn"><i class="fa fa-plus"></i> Expand </button>
-    <button bookmark-id="${bookmark.id}" class="id-locator collapse hide-when-collapsed bookmark-btn"><i class="fa fa-minus"></i> Collapse </button>
-    </section>
-    <section class="bookmark-hide-on-collapse">
-    <section class="description-block">Description: ${bookmark.desc}</section>
-    <button bookmark-id="${bookmark.id}" class="id-locator delete-bookmark-button btn"><i class="fa fa-trash"></i> Delete </button>
-    </section>
-  </div>
-  </section>
-    `;
-  }
-
-
+const BOOKMARKS = (function () {
   function generateAddBookmarkForm() {
     return `
     <form id='new-bookmark-form' class="add-bookmark">
     <fieldset>
-      <legend>
         <h2>Add a bookmark</h2>
-      </legend>
-      <div class='add-bookmark-top-row'>
-        <label for='title'>
-          <h3>Title:</h3>
+      <div class='add-bookmark-input-group'>
+      <section class="add-bookmark-label">
+        <label class="input-label" for='title'>Title:</label>
           <input type='text' name='title' id='title' required />
-        </label>
-        <label for='url'>
-          <h3>URL:</h3>
-          <input type='url' name='url' id='url' required />
-        </label>
-        <section id='star-rating-section'>
-          <h3>Rating:</h3>
-          <span class='starRating'>
+        </section>
+        <section class="add-bookmark-label">
+        <label class="input-label" for='url'>URL:</label>
+          <input type='url' name='url' id='url' required />     
+        </section>
+        <section class="add-bookmark-label">
+        <label class="input-label" for='desc'>Description:</label>
+          <input type='text' name='desc' id='desc' />
+        </section>
+        <section class='add-bookmark-label'>
+        <div class="bookmark-form-bottom-row">
+          <label for='rating'>Rating: </label>
+          <div class='starRating'>
             <input id='rating5' type='radio' name='rating' value='5'>
             <label for='rating5'>5</label>
             <input id='rating4' type='radio' name='rating' value='4'>
@@ -54,40 +37,68 @@ const BOOKMARKS = (function(){
             <label for='rating2'>2</label>
             <input id='rating1' type='radio' name='rating' value='1'>
             <label for='rating1'>1</label>
-          </span>
+          </div>
         </section>
-      </div>
-      <div class='add-bookmark-bottom-row'>
-        <label for='desc'>
-          <h3>Description:</h3>
-          <input type='text' name='desc' id='desc' />
-        </label>
-      </div>
-      <div class='save-cancel-row'>
         <button id="add-bookmark-save-button" class="btn"><i class="fa fa-save"></i> Save </button>
         <button id="add-bookmark-cancel-button" class="btn"><i class="fa fa-times"></i> Cancel </button>
       </div>
+      </div>
     </fieldset>
   </form>
+  `;
+  }
+
+  function generateCollapsedBookmark(bookmark) {
+    const starIconString = '<i class="fa fa-star fa-"></i>';
+    const starCount = (starIconString.repeat(bookmark.rating));
+    return `
+    <div class="bookmark-element collapsed-element" data-item-id="${bookmark.id}">
+    <section class="bookmark-top-row">
+      <a class="url-link bookmark-btn btn" href="${bookmark.url}" target="_blank"> <strong> ${bookmark.title} </strong>
+      <section class="star-rating"> ${starCount} </section> <section></section> </a> 
+      <button class="expand-collapse expand btn"><i class="fas fa-expand-arrows-alt"></i> Expand </button>
+    </section>
+  </div>
     `;
   }
 
+  function generateExpandedBookmark(bookmark) {
+    const starIconString = '<i class="fa fa-star"></i>';
+    const starCount = (starIconString.repeat(bookmark.rating));
+    return `
+    <div class="bookmark-element expanded-element" data-item-id="${bookmark.id}">
+    <section class="bookmark-top-row">
+    <a class="url-link bookmark-btn btn" href="${bookmark.url}" target="_blank"> <strong> ${bookmark.title} </strong>
+    <section class="star-rating"> ${starCount} </section> <section></section> </a> 
+    <button class="expand-collapse collapse btn"><i class="fas fa-expand"></i> Collapse </button>
+  </section>
+    <section class="bookmark-bottom-row"> 
+      <p id="description"> <strong>Description:</strong> ${bookmark.desc} </p>
+      <button class="expand-collapse delete-bookmark-button expand-collapse btn"><i class="fa fa-trash"></i> Delete </button>
+    </section>
+  </div>
+    `;
+  }
 
   function render() {
-    $('main').empty();
+    $('.bookmark-list').empty();
     $('#bookmark-form').empty();
-    if(LOCAL.addingBookmark){
+    if (LOCAL.addingBookmark  || LOCAL.items.length === 0) {
       $('#bookmark-form').append(generateAddBookmarkForm());
     }
-    API.getBookmarks();
-    let localBookmark = [...LOCAL.items];
-    localBookmark.forEach((element) => {
-      const bookmarkHTML = generateBookmarkElement(element);
-      $('main').append(bookmarkHTML);
+    let bookmarkItems = [...LOCAL.items];
+    bookmarkItems = bookmarkItems.filter(bookmark => bookmark.rating >= LOCAL.filterValue);
+    bookmarkItems.forEach((element) => {
+      const longBookmarkHTML = generateExpandedBookmark(element);
+      const shortBookmarkHTML = generateCollapsedBookmark(element);
+      if (LOCAL.expandedID === element.id) {
+        $('.bookmark-list').append(longBookmarkHTML);
+      } else {
+        $('.bookmark-list').append(shortBookmarkHTML);
+      }
     });
     console.log('render() ran...');
   }
-  
 
   //working
   //Prepares parameter "form" for push up to server
@@ -103,12 +114,14 @@ const BOOKMARKS = (function(){
   function saveNewBookmarkForm() {
     $('#bookmark-form').on('click', '#add-bookmark-save-button', event => {
       event.preventDefault();
-      console.log('saveNewBookmarkForm clicked');
+      console.log('saveNewBookmarkForm() ran...');
+      LOCAL.addingBookmark = false;
       let formElement = document.querySelector('#new-bookmark-form');
       let serialized = serializeJson(formElement);
       console.log(serialized);
-      API.createBookmark(serialized)
+      API.postBookmark(serialized)
         .then(() => {
+          API.getBookmarks();
           render();
         });
     });
@@ -117,7 +130,7 @@ const BOOKMARKS = (function(){
   //working
   function handleCancelBookmarkClicked() {
     $('#bookmark-form').on('click', '#add-bookmark-cancel-button', event => {
-      console.log('clicked');
+      console.log('handleCancelBookmarkClicked() ran...');
       LOCAL.addingBookmark = false;
       render();
     });
@@ -125,9 +138,9 @@ const BOOKMARKS = (function(){
 
   //working
   function handleNewBookmarkClicked() {
-    $('#new-bookmark-window-button').click(function(){
+    $('#new-bookmark-window-button').click(function () {
       LOCAL.addingBookmark = true;
-      console.log('handleNewBookmarkClicked ran');
+      console.log('handleNewBookmarkClicked() ran...');
       render();
     });
   }
@@ -135,60 +148,78 @@ const BOOKMARKS = (function(){
   //Star filter button click
   //not fully working
   function handleFilterClicked() {
-    $('#filter-stars-fieldset').on('click', event =>{
+    $('#filter-stars-fieldset').on('click', event => {
       event.preventDefault();
-      let newFilterRating = $('#filter-stars-fieldset').val();
-      console.log(newFilterRating);
-      LOCAL.filterValue = newFilterRating;
-      LOCAL.filterStatus = true;
+      let formElement = document.querySelector('#filter-star-form');
+      let serialized = serializeJson(formElement);
+      console.log(`handleFilterClicked() ran... serialized = ${serialized}`);
+      newFilterValue = Object.values(serialized);
+      console.log(newFilterValue);
+      LOCAL.filterValue = serialized[filter-rating];
       render();
-      console.log('handleFilterClicked ran');
     });
   }
 
-  
+  function handleFilterChange() {
+  $('input[name=filter-rating]').change(function(){
+    //$('#filter-star-form').submit();
+    event.preventDefault();
+    let formElement = document.querySelector('#filter-star-form');
+    let serialized = serializeJson(formElement);
+    let newFilterValue = JSON.parse(serialized);
+    console.log(`handleFilterClicked() ran... LOCAL.filterValue = ${newFilterValue}`);
+    LOCAL.setFilterValue(newFilterValue['filter-rating']);
+    render();
+    });
+  }
+
   function getBookmarkIdFromElement(target) {
     return $(target)
-      .closest('.id-locator')
-      .data('bookmark-id');
+      .closest('.bookmark-element')
+      .data('item-id');
   }
-  
-
   function handleDeleteBookmarkClicked() {
-    $('main').on('click', '.delete-bookmark-button', event => {
+    $('.bookmark-list').on('click', '.delete-bookmark-button', function (event) {
       console.log('handleDeleteBookmarkClicked() ran...');
-      console.log(getBookmarkIdFromElement(event.target));
-      const id = getBookmarkIdFromElement(event.target); //TEST IF THIS LINE WORKS
-      // const id = event.currentTarget.attributes[1].nodeValue;  //WORKS, BUT IT'S PROBABLY EASILY BROKEN
-      $('.bookmarks-section').empty();
-      API.deleteBookmark(id)    // <= we send the needed property
+      const id = getBookmarkIdFromElement(event.currentTarget);
+      console.log(id);
+      API.deleteBookmark(id)
         .then(() => {
+          API.getBookmarks()
+            .then(() => BOOKMARKS.render());
           render();
         });
     });
   }
 
+  function handleExpandClicked() {
+    $('.bookmark-list').on('click', '.expand', event => {
+      const id = getBookmarkIdFromElement(event.target);
+      console.log(`handleCollapsedClicked() ran... ID = ${id}`);
+      $('.bookmarks-section').empty();
+      LOCAL.assignExpandedID(id)
+      render();
+    });
+  }
 
   function handleCollapsedClicked() {
-    $('main').on('click', '.hide-when-collapsed', event => {
-      console.log('handleCollapsedClicked() ran...');
+    $('.bookmark-list').on('click', '.collapse', event => {
       const id = getBookmarkIdFromElement(event.target);
-      console.log(id);
+      console.log(`handleCollapsedClicked() ran...ID = ${id}`);
       $('.bookmarks-section').empty();
-      API.deleteBookmark(id)    // <= we send the needed property
-        .then(() => {
-          render();
-        });
+      LOCAL.assignExpandedID(0);
+      render();
     });
   }
 
-  
   function bindEventListeners() {
     saveNewBookmarkForm();
-    handleFilterClicked();
+    // handleFilterClicked();
+    handleFilterChange();
     handleCancelBookmarkClicked();
-    handleNewBookmarkClicked(); 
+    handleNewBookmarkClicked();
     handleCollapsedClicked();
+    handleExpandClicked();
     handleDeleteBookmarkClicked();
   }
 
