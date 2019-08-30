@@ -7,44 +7,62 @@
 const BOOKMARKS = (function () {
   function generateAddBookmarkForm() {
     return `
+
     <form id='new-bookmark-form' class="add-bookmark">
     <fieldset>
-        <h2>Add a bookmark</h2>
-      <div class='add-bookmark-input-group'>
-      <section class="add-bookmark-label">
-        <label class="input-label" for='title'>Title:</label>
+  
+      <h2>Add a bookmark</h2>
+  
+      <section class="bookmark-input-top-row">
+  
+        <div id="input-label-force-row">
+          <label class="input-label" for='title'></label>
+          <h4>Title: </h4>
           <input type='text' name='title' id='title' required />
-        </section>
-        <section class="add-bookmark-label">
-        <label class="input-label" for='url'>URL:</label>
-          <input type='url' name='url' id='url' required />     
-        </section>
-        <section class="add-bookmark-label">
-        <label class="input-label" for='desc'>Description:</label>
+        </div>
+  
+        <div id="input-label-force-row">
+          <label class="input-label" for='url'></label>
+          <h4>URL: </h4>
+          <input type='url' name='url' id='url' required />
+        </div>
+  
+      </section>
+  
+  
+      <section class="bookmark-input-bottom-row">
+  
+        <div id="input-label-force-row">
+          <label class="input-label" for='desc'></label>
+          <h4>Notes: </h4>
           <input type='text' name='desc' id='desc' />
-        </section>
-        <section class='add-bookmark-label'>
-        <div class="bookmark-form-bottom-row">
-          <label for='rating'>Rating: </label>
-          <div class='starRating'>
-            <input id='rating5' type='radio' name='rating' value='5'>
-            <label for='rating5'>5</label>
-            <input id='rating4' type='radio' name='rating' value='4'>
-            <label for='rating4'>4</label>
-            <input id='rating3' type='radio' name='rating' value='3'>
-            <label for='rating3'>3</label>
-            <input id='rating2' type='radio' name='rating' value='2'>
-            <label for='rating2'>2</label>
-            <input id='rating1' type='radio' name='rating' value='1'>
-            <label for='rating1'>1</label>
-          </div>
-        </section>
+        </div>
+  
+        <div id="input-label-force-row">
+          <label for='rating'> </label>
+          <h4>Rating: </h4>
+          <span id="filter-star-rating" class='starRating'>
+          <input id='filter-rating-5' type='radio' name='filter-rating' value='5'>
+          <label for='filter-rating-5'>5</label>
+          <input id='filter-rating-4' type='radio' name='filter-rating' value='4'>
+          <label for='filter-rating-4'>4</label>
+          <input id='filter-rating-3' type='radio' name='filter-rating' value='3'>
+          <label for='filter-rating-3'>3</label>
+          <input id='filter-rating-2' type='radio' name='filter-rating' value='2'>
+          <label for='filter-rating-2'>2</label>
+          <input id='filter-rating-1' type='radio' name='filter-rating' value='1'>
+          <label for='filter-rating-1'>1</label>
+        </span>
+        </div>
+  
+      </section>
+  
+      <section class="save-cancel-buttons-row">
+  
         <button id="add-bookmark-save-button" class="btn"><i class="fa fa-save"></i> Save </button>
         <button id="add-bookmark-cancel-button" class="btn"><i class="fa fa-times"></i> Cancel </button>
-      </div>
-      </div>
-    </fieldset>
-  </form>
+  
+      </section>
   `;
   }
 
@@ -54,9 +72,9 @@ const BOOKMARKS = (function () {
     return `
     <div class="bookmark-element collapsed-element" data-item-id="${bookmark.id}">
     <section class="bookmark-top-row">
-      <a class="url-link bookmark-btn btn" href="${bookmark.url}" target="_blank"> <strong> ${bookmark.title} </strong>
-      <section class="star-rating"> ${starCount} </section> <section></section> </a> 
-      <button class="expand-collapse expand btn"><i class="fas fa-expand-arrows-alt"></i> Expand </button>
+      <a class="url-link bookmark-btn" href="${bookmark.url}" target="_blank"> <strong> ${bookmark.title} </strong></a> 
+      <section class="star-rating"> ${starCount} </section> 
+      <button class="expand-collapse expand btn"><i class="fas fa-expand"></i> Expand </button>
     </section>
   </div>
     `;
@@ -68,13 +86,13 @@ const BOOKMARKS = (function () {
     return `
     <div class="bookmark-element expanded-element" data-item-id="${bookmark.id}">
     <section class="bookmark-top-row">
-    <a class="url-link bookmark-btn btn" href="${bookmark.url}" target="_blank"> <strong> ${bookmark.title} </strong>
-    <section class="star-rating"> ${starCount} </section> <section></section> </a> 
+    <a class="url-link bookmark-btn" href="${bookmark.url}" target="_blank"> <strong> ${bookmark.title} </strong> </a> 
+    <section class="star-rating"> ${starCount} </section>
     <button class="expand-collapse collapse btn"><i class="fas fa-expand"></i> Collapse </button>
   </section>
     <section class="bookmark-bottom-row"> 
       <p id="description"> <strong>Description:</strong> ${bookmark.desc} </p>
-      <button class="expand-collapse delete-bookmark-button expand-collapse btn"><i class="fa fa-trash"></i> Delete </button>
+      <button class="expand-collapse delete-bookmark-button expand-collapse btn"><i class="far fa-trash-alt"></i> Delete </button>
     </section>
   </div>
     `;

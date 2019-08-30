@@ -55,13 +55,3 @@ const LOCAL = (function () {
 
   return globalObj;
 }());
-
-
-
-
-
-
-
-
-
-
