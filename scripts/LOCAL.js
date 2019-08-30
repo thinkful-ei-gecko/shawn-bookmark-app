@@ -50,7 +50,7 @@ const LOCAL = (function () {
     addBookmark: addBookmark,
     assignExpandedID: assignExpandedID,
     findAndDelete: findAndDelete,
-    setFilterValue, setFilterValue,
+    setFilterValue, setFilterValue
   };
 
   return globalObj;

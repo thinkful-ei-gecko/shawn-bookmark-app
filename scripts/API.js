@@ -7,15 +7,19 @@ const API = (function () {
 
   const BASE_URL = 'https://thinkful-list-api.herokuapp.com/shawn/bookmarks/';
 
+  const userError = function (error) {
+    alert(`INVALID REQUEST:
+      Error code ${error.code}:
+      ${error.message}`);
+  };
+
   const masterFetch = function (...args) {
     console.log('masterFetch() ran...');
     let error;
     return fetch(...args)
       .then(res => {
         if (!res.ok) {
-          error = {
-            code: res.status
-          };
+          error = {code: res.status};
 
           if (!res.headers.get('content-type').includes('json')) {
             error.message = res.statusText;
@@ -27,6 +31,7 @@ const API = (function () {
       .then(data => {
         if (error) {
           error.message = data.message;
+          userError(error);
           return Promise.reject(error);
         }
         return data;

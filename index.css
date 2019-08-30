@@ -160,8 +160,12 @@ footer {
 }
 
 
-.bookmark-element:hover .url-link {
-  color: yellow;
+.url-link {
+  flex-grow: 1;
+}
+
+.bookmark-top-row:hover a{
+  color: rgb(255, 174, 0);
 }
 
 .bookmark-btn {
@@ -191,6 +195,11 @@ footer {
   cursor: pointer;
 }
 
+.expand {
+  padding-left: 13px;
+  padding-right: 13px;
+}
+
 .btn:hover {
   background-color: RoyalBlue;
 }
@@ -208,7 +217,6 @@ fieldset {
   margin: 0;
 }
 
-
 .add-bookmark {
   background-color: rgba(0, 26, 255, 0.233);
   color: white;
@@ -222,28 +230,10 @@ fieldset {
   border: 1px solid white;
   padding: 3px;
   padding-left: 5px;
-
-}
-
-
-.bookmark-input-top-row{
-  max-width: 100%;
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  align-content: center;
-}
-
-.bookmark-input-bottom-row {
-  display: flex;
-  flex-direction: row;
-  justify-content: space-around;
-  align-items: center;
-  align-content: center;
 }
 
 .save-cancel-buttons-row{
+  margin-top: 10px;
   display: flex;
   flex-direction: row;
   justify-content: space-around;
@@ -266,6 +256,9 @@ fieldset {
 
 .star-rating {
   margin-top: 4px;
+  flex-grow: 1;
+  color: white;
+  cursor: pointer;
 }
 
 #rating1,
@@ -279,7 +272,14 @@ fieldset {
 #title,
 #url,
 #desc{
-  max-width: 100px;
+  min-width: 150px;
+  margin-left: 20px;
+  font-size: 12px;
+}
+
+#desc{
+  min-width: 150px;
+  margin-left: 10px;
   font-size: 12px;
 }
 
@@ -292,7 +292,7 @@ body {
   display: flex;
   min-height: 100vh;
   min-width: 300px;
-  max-width: 700px;
+  max-width: 600px;
   flex-direction: column;
   margin-left: auto;
   margin-right: auto;
@@ -354,13 +354,13 @@ a {
 /* END OF STAR RATING */
 
 
-@media screen and (min-width: 430px){
-  /* BOOKMARK FORM */
+@media screen and (min-width: 515px){
+
+/* BOOKMARK FORM */
 fieldset {
   border: none;
   margin: 0;
 }
-
 
 .add-bookmark {
   background-color: rgba(0, 26, 255, 0.233);
@@ -375,7 +375,6 @@ fieldset {
   border: 1px solid white;
   padding: 3px;
   padding-left: 5px;
-
 }
 
 
@@ -390,15 +389,16 @@ fieldset {
 
 .bookmark-input-bottom-row {
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
   align-items: center;
   align-content: center;
 }
 
 .save-cancel-buttons-row{
+  margin-top: 10px;
   display: flex;
-  flex-direction: column;
+  flex-direction: row;
   justify-content: space-around;
   align-items: stretch;
   align-content: center;
@@ -432,10 +432,16 @@ fieldset {
 #title,
 #url,
 #desc{
-  max-width: 100px;
+  min-width: 150px;
+  margin-left: 20px;
+  font-size: 12px;
+}
+
+#desc{
+  min-width: 150px;
+  margin-left: 10px;
   font-size: 12px;
 }
 
 /* END OF BOOKMARK FORM */
-}
 
