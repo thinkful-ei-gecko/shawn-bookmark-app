@@ -102,13 +102,7 @@ footer {
   color: white;
   margin-right: 5px;
 }
-
 /* END OF ICONS */
-
-
-
-
-
 
 
 /* BOOKMARK LIST */
@@ -181,8 +175,8 @@ footer {
 .bookmark.btn:hover {
   color: yellow;
 }
-
 /* END OF BOOKMARK LIST */
+
 
 /* BUTTONS */
 .btn {
@@ -286,7 +280,6 @@ fieldset {
 /* END OF BOOKMARK FORM */
 
 
-
 /* BEGINNING OF STAR RATING */
 body {
   display: flex;
@@ -350,12 +343,10 @@ a {
 .starRating:not(:hover)> :checked~label:before {
   opacity: 1;
 }
-
 /* END OF STAR RATING */
 
 
 @media screen and (min-width: 515px){
-
 /* BOOKMARK FORM */
 fieldset {
   border: none;
@@ -442,6 +433,4 @@ fieldset {
   margin-left: 10px;
   font-size: 12px;
 }
-
 /* END OF BOOKMARK FORM */
-
