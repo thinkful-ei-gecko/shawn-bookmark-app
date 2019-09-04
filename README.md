@@ -1,9 +1,7 @@
 # Trapper Keeper +
 
-----
 ### DESCRIPTION:
 An app to create, save, delete, and filter your bookmarks by rating.
-
 ----
 ### GITHUB PAGES LINK:
 https://thinkful-ei-gecko.github.io/shawn-bookmark-app/
@@ -17,8 +15,6 @@ https://thinkful-ei-gecko.github.io/shawn-bookmark-app/
    - link
    - description
    - rating (1-5)
-
-
 
 - I can see a list of my bookmarks when I first open the app
 
