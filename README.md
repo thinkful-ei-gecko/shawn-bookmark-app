@@ -3,6 +3,7 @@
 ### DESCRIPTION:
 
 An app to create, save, delete, and filter your bookmarks by rating.
+
 ----
 ### GITHUB PAGES LINK:
 
